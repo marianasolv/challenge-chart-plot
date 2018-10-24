@@ -171,3 +171,43 @@ function addDataToChart(arrayOfSeries) {
     }
   }
 };
+
+
+//This function will read one JSON Event Object at a time and
+//treat it according to its type
+function readEvents() {
+  var count = 0;
+  var currentEvent = null;
+  var group = [];
+  var select = [];
+  var arrayOfEvents = recoverJSONData();
+
+  while(arrayOfEvents[count] != null) { //While there's data, still reading
+  currentEvent = arrayOfEvents[count];
+  if(currentEvent.type == "start") {
+    group = currentEvent.group;
+    select = currentEvent.select;
+
+    while(currentEvent.type != "stop") { //If it's a start event, only stops if it's a stop event
+    count++;
+    currentEvent = arrayOfEvents[count];
+    console.log('current event: ', currentEvent)
+    if (currentEvent.type == "span") {
+      updateChartBoundaries(currentEvent.begin, currentEvent.end);
+    }
+    if (currentEvent.type == "data") {
+      series = getTimeSeries(currentEvent, group, select);
+      addDataToChart(series);
+    }
+  }
+}
+count++;
+}
+}
+
+//This function will be triggred when the button to generate the chart is clicked
+//It will "clean" the chart for a new set of data
+function newChart() {
+  initializeChart();
+  readEvents();
+}
