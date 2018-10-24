@@ -121,3 +121,53 @@ function getTimeSeries(jsonEvent, group, select) {
   }
   return arrayOfSeries;
 };
+
+
+//This function will check if a serie already exists in the chart by it's name
+function checkIfSeriesExist(seriesName) {
+  exists = false;
+  for (i in chart.series) {
+    if (seriesName == chart.series[i].name) {
+      exists = true;
+    }
+  }
+  return exists;
+}
+
+//This function will return the index of a given named series
+function getSeriesIndex(seriesName) {
+  index = null;
+  for (i in chart.series) {
+    if (seriesName == chart.series[i].name) {
+      index = i;
+    }
+  }
+  return index;
+}
+
+//This function will add data to the chart
+//by determinating whether to create a new series or whether to add a new point to an existing series.
+function addDataToChart(arrayOfSeries) {
+  currentSeries = null;
+
+  for(j = 0; j < arrayOfSeries.length; j++){
+    currentSeries = arrayOfSeries[j];
+    nameSeries = currentSeries[0];
+    dataSeries = currentSeries[1];
+
+    //check if the series exists in chart
+    seriesExists = checkIfSeriesExist(nameSeries);
+
+    //if the series does not exists, then a new series will be created
+    if (seriesExists == false) {
+      chart.addSeries({
+        name: nameSeries, //Returns the name of the series
+        data: [dataSeries] //Returns the point object {x, y}
+      });
+    } else {
+      //if the series already exists, then create a new data point in it
+      seriesIndex = getSeriesIndex(nameSeries);
+      chart.series[seriesIndex].addPoint(dataSeries, true);
+    }
+  }
+};
