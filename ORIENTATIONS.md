@@ -2,6 +2,8 @@
 
 The objective of this document is to provide the impressions of challenges development, justify some decisions and give orientations on the application.
 
+Application link in CodePen: https://codepen.io/r4-m9/pen/yRRoJr
+
 ## Impressions
 At first I was completely lost and full of doubts, I thought I might not be able to deliver the challenge. However, after taking time to understand it better and after Hubert's answers, it became clear to me what I had to do. Personally, I found that the description of the challenge is a bit confusing and difficult to understand when reading only once.
 
