@@ -84,3 +84,40 @@ $( document ).ready(function() {
 function updateChartBoundaries(min, max) {
   chart.xAxis[0].setExtremes(min,max);
 };
+
+
+//This function will recover the data as string from the input area, line by line, and
+//parse each to a JSON Object.
+function recoverJSONData() {
+  var editor = ace.edit("editor"); //Find an ace editor instance
+  var rawData = editor.getValue(); //Return the text in the code editor
+  var arrayOfEvents = rawData.split("\n"); //Split the content of textarea by line
+  for (i = 0; i < arrayOfEvents.length; i++) { //Transform each line in a JSON Object
+    arrayOfEvents[i] = JSON.parse(arrayOfEvents[i]);
+  }
+  return arrayOfEvents;
+};
+
+
+//This function will get all time series from a event object of the type data
+function getTimeSeries(jsonEvent, group, select) {
+  timestamp = jsonEvent.timestamp;
+  eventGroup = '';
+  arrayOfSeries = [];
+
+  for (i = 0; i < group.length; i++) {
+    currentGroup = group[i];
+    eventGroup += ' ' + jsonEvent[currentGroup];
+  }
+  eventGroup = eventGroup.replace(/^\s+/,"");
+
+  for (i = 0; i < select.length; i++) {
+    currentSelect = select[i];
+    series = []
+    name = eventGroup + ' ' + select[i];
+    point = {x: timestamp, y: jsonEvent[currentSelect]};
+    series.push(name, point);
+    arrayOfSeries.push(series);
+  }
+  return arrayOfSeries;
+};
