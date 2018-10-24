@@ -1,0 +1,60 @@
+.parent {
+  padding: 20px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.title {
+  background: #dddee1;
+  color: #212121;
+  font-weight: bold;
+  font-size: 25px;
+  height: 50px;
+}
+#title {
+  margin: 10px 0px 0px 15px;
+}
+.textarea {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+#editor {
+  position: relative;
+  min-height: 100px;
+}
+.splitter {
+  flex: 0 0 auto;
+  height: 18px;
+  background: url(https://raw.githubusercontent.com/RickStrahl/jquery-resizable/master/assets/hsizegrip.png) center center no-repeat #535353;
+  cursor: row-resize;
+}
+.output {
+  background: #ffffff;
+}
+.generate-button {
+  background: #dddee1;
+  height: 50px;
+}
+#generate-chart {
+  padding:5px;
+  margin: 10px 0px 0px 15px;
+  background-color: #f39c12;
+  border: 1px solid #666;
+  color:#ffff;
+  border-color: #f39c12;
+  cursor:pointer;
+}
+
+/* Responsive feature */
+@media only screen and (min-width: 641px){
+  .parent {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media only screen and (min-width: 1025px){
+  .parent {
+    grid-template-columns: 1fr;
+  }
+}
